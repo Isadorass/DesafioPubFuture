@@ -2,13 +2,43 @@ package br.com.isadora.entities;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.springframework.lang.NonNull;
+
 import br.com.isadora.enums.TipoDespesa;
 
+@Entity
 public class Despesa {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@NonNull
+	private Integer id;
+
+	@NonNull
+	@Column(length = 99999999)
 	private Double valor;
+
+	@NonNull
 	private LocalDateTime dataPagamento;
+
+	@NonNull
 	private LocalDateTime dataPagamentoEsperado;
+
+	@NonNull
+	@Column(length = 11)
 	private TipoDespesa tipoDespesa;
+
+	@NonNull
+	@JoinColumn(name = "conta_id")
+	@ManyToOne
 	private Conta conta;
 
 	public Despesa() {
@@ -22,6 +52,14 @@ public class Despesa {
 		this.dataPagamentoEsperado = dataPagamentoEsperado;
 		this.tipoDespesa = tipoDespesa;
 		this.conta = conta;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Double getValor() {
@@ -65,7 +103,8 @@ public class Despesa {
 	}
 
 	public String toString() {
-		return "Despesa [valor=" + valor + ", dataPagamento=" + dataPagamento + ", dataPagamentoEsperado="
-				+ dataPagamentoEsperado + ", tipoDespesa=" + tipoDespesa + ", conta=" + conta + "]";
-	}	
+		return "Despesa [id = " + this.id + ", valor=" + this.valor + ", dataPagamento=" + this.dataPagamento
+				+ ", dataPagamentoEsperado=" + this.dataPagamentoEsperado + ", tipoDespesa=" + this.tipoDespesa
+				+ ", conta=" + this.conta + "]";
+	}
 }

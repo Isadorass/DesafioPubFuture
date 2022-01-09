@@ -1,13 +1,33 @@
 package br.com.isadora.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.springframework.lang.NonNull;
+
 import br.com.isadora.enums.TipoConta;
 
+@Entity
 public class Conta {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@NonNull
+	private Integer id;
+
+	@NonNull
+	@Column(length = 99999999)
 	private Double saldo;
 
+	@NonNull
+	@Column(length = 14)
 	private TipoConta tipoConta;
 
+	@NonNull
+	@Column(length = 255)
 	private String instituicaoFinanceira;
 
 	public Conta() {
@@ -17,6 +37,14 @@ public class Conta {
 		this.saldo = saldo;
 		this.tipoConta = tipoConta;
 		this.instituicaoFinanceira = instituicaoFinanceira;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Double getSaldo() {
@@ -44,7 +72,7 @@ public class Conta {
 	}
 
 	public String toString() {
-		return "Conta [saldo=" + saldo + ", tipoConta=" + tipoConta + ", instituicaoFinanceira=" + instituicaoFinanceira
-				+ "]";
+		return "Conta [id = " + this.id + ", saldo=" + this.saldo + ", tipoConta=" + this.tipoConta + ", instituicaoFinanceira="
+				+ this.instituicaoFinanceira + "]";
 	}
 }
