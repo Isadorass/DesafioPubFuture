@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
-Built-By: lucas
-Build-Jdk: 11.0.13
+Build-Jdk-Spec: 11
+Implementation-Title: pub-future
+Implementation-Version: 1.0.0
 Created-By: Maven Integration for Eclipse
 

@@ -2,18 +2,51 @@ package br.com.isadora.entities;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.springframework.lang.NonNull;
+
 import br.com.isadora.enums.TipoReceita;
 
+@Entity
 public class Receitas {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@NonNull
+	private Integer id;
+
+	@NonNull
+	@Column(length = 999999999)
 	private Double valor;
+
+	@NonNull
 	private LocalDateTime dataRecebimento;
+
+	@NonNull
 	private LocalDateTime dataRecebimentoEsperado;
+
+	@NonNull
+	@Column(length = 255)
 	private String descricao;
-	private Conta conta;
+
+	@NonNull
+	@Column(length = 8)
 	private TipoReceita tipoReceita;
-	
+
+	@NonNull
+	@ManyToOne
+	@JoinColumn(name = "conta_id")
+	private Conta conta;
+
 	public Receitas() {
-		
+
 	}
 
 	public Receitas(Double valor, LocalDateTime dataRecebimento, LocalDateTime dataRecebimentoEsperado,
@@ -24,6 +57,14 @@ public class Receitas {
 		this.descricao = descricao;
 		this.conta = conta;
 		this.tipoReceita = tipoReceita;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Double getValor() {
@@ -75,8 +116,8 @@ public class Receitas {
 	}
 
 	public String toString() {
-		return "Receitas [valor=" + valor + ", dataRecebimento=" + dataRecebimento + ", dataRecebimentoEsperado="
-				+ dataRecebimentoEsperado + ", descricao=" + descricao + ", conta=" + conta + ", tipoReceita="
-				+ tipoReceita + "]";
+		return "Receitas [id = " + this.id + ", valor=" + this.valor + ", dataRecebimento=" + this.dataRecebimento
+				+ ", dataRecebimentoEsperado=" + this.dataRecebimentoEsperado + ", descricao=" + this.descricao
+				+ ", conta=" + this.conta + ", tipoReceita=" + this.tipoReceita + "]";
 	}
 }
