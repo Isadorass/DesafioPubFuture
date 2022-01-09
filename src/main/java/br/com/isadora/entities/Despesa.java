@@ -19,7 +19,6 @@ public class Despesa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@NonNull
 	private Integer id;
 
 	@NonNull
@@ -56,10 +55,6 @@ public class Despesa {
 
 	public Integer getId() {
 		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public Double getValor() {

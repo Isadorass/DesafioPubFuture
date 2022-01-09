@@ -15,11 +15,10 @@ import org.springframework.lang.NonNull;
 import br.com.isadora.enums.TipoReceita;
 
 @Entity
-public class Receitas {
+public class Receita {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@NonNull
 	private Integer id;
 
 	@NonNull
@@ -45,11 +44,11 @@ public class Receitas {
 	@JoinColumn(name = "conta_id")
 	private Conta conta;
 
-	public Receitas() {
+	public Receita() {
 
 	}
 
-	public Receitas(Double valor, LocalDateTime dataRecebimento, LocalDateTime dataRecebimentoEsperado,
+	public Receita(Double valor, LocalDateTime dataRecebimento, LocalDateTime dataRecebimentoEsperado,
 			String descricao, Conta conta, TipoReceita tipoReceita) {
 		this.valor = valor;
 		this.dataRecebimento = dataRecebimento;
@@ -61,10 +60,6 @@ public class Receitas {
 
 	public Integer getId() {
 		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public Double getValor() {
