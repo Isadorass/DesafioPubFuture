@@ -7,5 +7,4 @@ import br.com.isadora.entities.Receita;
 
 @Repository
 public interface ReceitaRepository extends JpaRepository<Receita, Integer>{
-
 }
