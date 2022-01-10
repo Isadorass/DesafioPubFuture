@@ -31,7 +31,6 @@ public class Receita {
 	@NonNull
 	private LocalDateTime dataRecebimentoEsperado;
 
-	@NonNull
 	@Column(length = 255)
 	private String descricao;
 
