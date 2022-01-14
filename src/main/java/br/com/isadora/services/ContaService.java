@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import br.com.isadora.entities.Conta;
 import br.com.isadora.repositories.ContaRepository;
 import br.com.isadora.utils.exceptions.ContaInexistenteException;
-import br.com.isadora.utils.validation.ContaValidation;
+import br.com.isadora.utils.exceptions.ValorNegativoException;
+import br.com.isadora.utils.validations.ContaValidation;
 
 /**
  * <h1>Classe de serviço da {@link Conta}.</h1>
@@ -160,7 +161,7 @@ public class ContaService {
 			return existeConta(id).getSaldo();
 		} catch (Exception exception) {
 			System.err.println(exception);
-			return 0.0;
+			return -0.0;
 		}
 	}
 
@@ -173,7 +174,7 @@ public class ContaService {
 	 * executa a transferencia caso elas existam.
 	 * </p>
 	 * 
-	 * @param idContaDebito      {@link Integer} - Referente ao id da {@link Conta}
+	 * @param idContaPagante     {@link Integer} - Referente ao id da {@link Conta}
 	 *                           onde será feito o débito do valor.
 	 * 
 	 * @param idContaRecebente   {@link Integer} - Referente ao id da {@link Conta}
@@ -183,7 +184,7 @@ public class ContaService {
 	 *                           transferência.
 	 * 
 	 * @return {@link Boolean} - true caso a transferência tenha ocorrido com
-	 *         sucesso e false caso contrário
+	 *         sucesso e false caso contrário.
 	 * 
 	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 * 
@@ -192,15 +193,37 @@ public class ContaService {
 	 * @see Double
 	 * @see Boolean
 	 */
-	public Boolean transferirSaldo(Integer idContaDebito, Integer idContaRecebente, Double valorTransferencia) {
+	public Boolean transferirSaldo(Integer idContaPagante, Integer idContaRecebente, Double valorTransferencia) {
 		try {
-			Conta contaDebito = existeConta(idContaDebito);
+			Conta contaPagante = existeConta(idContaPagante);
 			Conta contaRecebente = existeConta(idContaRecebente);
+			verificaValorTransferencia(valorTransferencia);
 
-			return transferir(contaDebito, contaRecebente, valorTransferencia);
+			return transferir(contaPagante, contaRecebente, valorTransferencia);
 		} catch (Exception exception) {
 			System.err.println(exception);
 			return false;
+		}
+	}
+
+	/**
+	 * <h1>Verifica o valor da transferência.</h1>
+	 * 
+	 * <p>Verifica se o valor da transferência
+	 * é menor que 0, se for lança uma {@link ValorNegativoException}.</p>
+	 * 
+	 * @return Boolean - true caso o valor for válido
+	 * 
+	 * @throws {@link ValorNegativoException} - Lançado
+	 * caso o valor seja negativo.
+	 * 
+	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
+	 * 
+	 * @see ValorNegativoException
+	 */
+	private void verificaValorTransferencia(Double valor) throws ValorNegativoException{
+		if (ContaValidation.verificarValorNegativo(valor)) {
+			throw new ValorNegativoException();
 		}
 	}
 
@@ -239,10 +262,10 @@ public class ContaService {
 	 * 
 	 * <p>
 	 * Recebe duas {@link Conta}s e um valor, desconta esse valor do saldo da
-	 * contaDebito e adiciona o mesmo valor no saldo da contaRecebimento.
+	 * contaPagante e adiciona o mesmo valor no saldo da contaRecebente.
 	 * </p>
 	 * 
-	 * @param contaDebito    {@link Conta} - Referente a {@link Conta} onde será
+	 * @param contaPagante   {@link Conta} - Referente a {@link Conta} onde será
 	 *                       feita o débito do valor.
 	 * 
 	 * @param contaRecebente {@link Conta} - Referente a {@link Conta} onde será
@@ -255,16 +278,16 @@ public class ContaService {
 	 * @see Conta
 	 * @see Double
 	 */
-	private Boolean transferir(Conta contaDebito, Conta contaRecebente, Double valor) {
-		Double saldoDebito = contaDebito.getSaldo();
+	private Boolean transferir(Conta contaPagante, Conta contaRecebente, Double valor) {
+		Double saldoPagante = contaPagante.getSaldo();
 		Double saldoRecebente = contaRecebente.getSaldo();
 
-		if (ContaValidation.verificaSaldo(contaDebito, valor)) {
-			contaDebito.setSaldo(saldoDebito - valor);
+		if (ContaValidation.verificaSaldo(contaPagante, valor)) {
+			contaPagante.setSaldo(saldoPagante - valor);
 			contaRecebente.setSaldo(saldoRecebente + valor);
 
-			contaRepository.save(contaDebito);
-			contaRepository.save(contaRecebente);
+			atualizar(contaRecebente);
+			atualizar(contaPagante);
 			return true;
 		}
 		return false;
