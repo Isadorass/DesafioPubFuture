@@ -17,75 +17,69 @@ import br.com.isadora.enums.TipoReceita;
 /**
  * Classe referente a entidade Receita
  * 
- * @author Isadora de Souza e Silva 
- * <strong>isadorass1710@gmail.com</strong>
+ * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
  *
  */
 @Entity
 public class Receita {
 
 	/**
-	 * id da receita, chave primária,
-	 * auto incremento.
-	 * @author Isadora de Souza e Silva 
-	 * <strong>isadorass1710@gmail.com</strong>
+	 * id da receita, chave primária, auto incremento.
+	 * 
+	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	/**
-	 * valor, referente ao valor da Receita.
-	 * Tamanho máximo desse campo será 999999999
-	 * @author Isadora de Souza e Silva 
-	 * <strong>isadorass1710@gmail.com</strong>
+	 * valor, referente ao valor da Receita. Tamanho máximo desse campo será
+	 * 999999999
+	 * 
+	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
 	@NonNull
 	@Column(length = 999999999)
 	private Double valor;
 
 	/**
-	 * dataRecebimento, referente a data 
-	 * de recebimento da Receita
-	 * @author Isadora de Souza e Silva 
-	 * <strong>isadorass1710@gmail.com</strong>
+	 * dataRecebimento, referente a data de recebimento da Receita
+	 * 
+	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
 	@NonNull
 	private LocalDateTime dataRecebimento;
 
 	/**
-	 * dataRecebimentoEsperado, referente a data de 
-	 * recebimento esperado da Receita 
-	 * @author Isadora de Souza e Silva 
-	 * <strong>isadorass1710@gmail.com</strong>
+	 * dataRecebimentoEsperado, referente a data de recebimento esperado da Receita
+	 * 
+	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
 	@NonNull
 	private LocalDateTime dataRecebimentoEsperado;
 
 	/**
-	 * Atributo de descrição referente a Receita
-	 * Tamanho máximo dessa campo será de 255
-	 * @author Isadora de Souza e Silva 
-	 * <strong>isadorass1710@gmail.com</strong>
+	 * Atributo de descrição referente a Receita Tamanho máximo dessa campo será de
+	 * 255
+	 * 
+	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
 	@Column(length = 255)
 	private String descricao;
 
 	/**
-	 * tipoReceita referente a Receita
-	 * Tamanho máximo desse campo será de 8
-	 * @author Isadora de Souza e Silva 
-	 * <strong>isadorass1710@gmail.com</strong>
+	 * tipoReceita referente a Receita Tamanho máximo desse campo será de 8
+	 * 
+	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
 	@NonNull
 	@Column(length = 8)
 	private TipoReceita tipoReceita;
 
 	/**
-	 * Conta, referente a Conta vinculada 
-	 * a esta Receita
-	 * @author Isadora de Souza e Silva 
-	 * <strong>isadorass1710@gmail.com</strong>
+	 * Conta, referente a Conta vinculada a esta Receita
+	 * 
+	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
 	@NonNull
 	@ManyToOne
@@ -96,8 +90,8 @@ public class Receita {
 
 	}
 
-	public Receita(Double valor, LocalDateTime dataRecebimento, LocalDateTime dataRecebimentoEsperado,
-			String descricao, Conta conta, TipoReceita tipoReceita) {
+	public Receita(Double valor, LocalDateTime dataRecebimento, LocalDateTime dataRecebimentoEsperado, String descricao,
+			Conta conta, TipoReceita tipoReceita) {
 		this.valor = valor;
 		this.dataRecebimento = dataRecebimento;
 		this.dataRecebimentoEsperado = dataRecebimentoEsperado;
@@ -108,6 +102,10 @@ public class Receita {
 
 	public Integer getId() {
 		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Double getValor() {
