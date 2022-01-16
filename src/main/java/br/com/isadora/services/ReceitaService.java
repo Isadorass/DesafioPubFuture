@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.com.isadora.entities.Receita;
 import br.com.isadora.enums.TipoReceita;
 import br.com.isadora.repositories.ReceitaRepository;
+import br.com.isadora.utils.exceptions.ReceitaInexistenteException;
 
 /**
  * Classe de serviço da Receieta
@@ -50,12 +51,20 @@ public class ReceitaService {
 	 * @param receita Receita - Referente a Receita a ser atualizada no banco de
 	 *                dados.
 	 * 
+	 * @param id      Integer - Referente ao id Receita
+	 * 
 	 * @return Integer - Referente ao id da Receita
 	 * 
 	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
-	public Integer atualizar(Receita receita) {
-		return receitaRepository.save(receita).getId();
+	public Integer atualizar(Receita receita, Integer id) {
+		try {
+			receita.setId(existeReceita(id).getId());
+			return receitaRepository.save(receita).getId();
+		} catch (ReceitaInexistenteException exception) {
+			System.err.print(exception);
+			return 0;
+		}
 	}
 
 	/**
@@ -87,12 +96,13 @@ public class ReceitaService {
 	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
 
-	public Receita buscarPorId(Integer id) throws Exception {
-		Optional<Receita> optionalReceita = receitaRepository.findById(id);
-		if (optionalReceita.isPresent()) {
-			return optionalReceita.get();
+	public Receita buscarPorId(Integer id) {
+		try {
+			return existeReceita(id);
+		} catch (ReceitaInexistenteException exception) {
+			System.err.println(exception);
+			return null;
 		}
-		throw new Exception("Não foi encontrado uma conta com o id " + id);
 	}
 
 	/**
@@ -124,7 +134,7 @@ public class ReceitaService {
 	 * 
 	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
-	public List<Receita> buscarPorTipo(TipoReceita tipoReceita) {
+	public List<Receita> buscarPorTipoReceita(TipoReceita tipoReceita) {
 		return receitaRepository.findByTipoReceita(tipoReceita);
 	}
 
@@ -178,4 +188,22 @@ public class ReceitaService {
 	public List<Receita> buscarPorPeriodoDataRecebimentoEsperado(LocalDateTime dataInicial, LocalDateTime dataFinal) {
 		return receitaRepository.findByDataRecebimentoEsperadoBetween(dataInicial, dataFinal);
 	}
+
+	/**
+	 * metodo que verifica se uma receita é existente, caso não, lança uma
+	 * exception, caso contrario retorna uma receita
+	 * 
+	 * @param id Integer - refente ao id da receita
+	 * @return Receita - referente a receita
+	 * @throws ReceitaInexistenteException - caso uma receita não exista
+	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
+	 */
+	private Receita existeReceita(Integer id) throws ReceitaInexistenteException {
+		Optional<Receita> optionalReceita = receitaRepository.findById(id);
+		if (!optionalReceita.isPresent()) {
+			throw new ReceitaInexistenteException(id);
+		}
+		return optionalReceita.get();
+	}
+
 }

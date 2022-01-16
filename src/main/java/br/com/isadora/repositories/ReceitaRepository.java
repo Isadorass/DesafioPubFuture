@@ -11,6 +11,7 @@ import br.com.isadora.enums.TipoReceita;
 
 @Repository
 public interface ReceitaRepository extends JpaRepository<Receita, Integer> {
+	
 	List<Receita> findByTipoReceita(TipoReceita tipoReceita);
 
 	List<Receita> findByDataRecebimentoBetween(LocalDateTime dataInicial, LocalDateTime dataFinal);

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.isadora.entities.Despesa;
+import br.com.isadora.enums.TipoDespesa;
 import br.com.isadora.repositories.DespesaRepository;
+import br.com.isadora.utils.exceptions.DespesaInexistenteException;
 
 /**
  * <h1>Classe de serviço da {@link Despesa}.</h1>
@@ -51,13 +53,38 @@ public class DespesaService {
 	 * 
 	 * @param despesa Despesa - Referente a Despesa a ser atualizada no banco de
 	 *                dados.
+	 * @param id      Integer - referente ao id.
 	 * 
 	 * @return Integer - Referente ao id da Despesa.
 	 * 
 	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
-	public Integer atualizar(Despesa despesa) {
-		return despesaRepository.save(despesa).getId();
+	public Integer atualizar(Despesa despesa, Integer id) {
+		try {
+			despesa.setId(existeDespesa(id).getId());
+			return despesaRepository.save(despesa).getId();
+		} catch (DespesaInexistenteException exception) {
+			System.err.print(exception);
+			return 0;
+		}
+	}
+
+	/**
+	 * Método que verifica se existe uma despesa, caso sim retorna a despesa, caso
+	 * contrario lança uma exception
+	 * 
+	 * @param id Integer - id referente a despesa
+	 * @return Despesa - referente a despesa
+	 * @throws DespesaInexistenteException - lança uma exception caso a despesa não
+	 *                                     existe
+	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
+	 */
+	private Despesa existeDespesa(Integer id) throws DespesaInexistenteException {
+		Optional<Despesa> optionalDespesa = despesaRepository.findById(id);
+		if (!optionalDespesa.isPresent()) {
+			throw new DespesaInexistenteException(id);
+		}
+		return optionalDespesa.get();
 	}
 
 	/**
@@ -88,12 +115,13 @@ public class DespesaService {
 	 * 
 	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
-	public Despesa buscarPorId(Integer id) throws Exception {
-		Optional<Despesa> optionalDespesa = despesaRepository.findById(id);
-		if (optionalDespesa.isPresent()) {
-			return optionalDespesa.get();
+	public Despesa buscarPorId(Integer id) {
+		try {
+			return existeDespesa(id);
+		} catch (DespesaInexistenteException exception) {
+			System.err.print(exception);
+			return null;
 		}
-		throw new Exception("Não foi encontrado uma conta com o id " + id);
 	}
 
 	/**
@@ -121,8 +149,8 @@ public class DespesaService {
 	 * 
 	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
-	public Integer listarTotalDeDespesas() {
-		return despesaRepository.findAll().size();
+	public Integer buscarTotalDeDespesas() {
+		return buscarTodas().size();
 	}
 
 	/**
@@ -140,7 +168,7 @@ public class DespesaService {
 	 * 
 	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
-	public List<Despesa> buscarPorPeriodoDataRecebimento(LocalDateTime dataInicial, LocalDateTime dataFinal) {
+	public List<Despesa> buscarPorPeriodoDataPagamento(LocalDateTime dataInicial, LocalDateTime dataFinal) {
 		return despesaRepository.findByDataPagamentoBetween(dataInicial, dataFinal);
 	}
 
@@ -159,7 +187,19 @@ public class DespesaService {
 	 * 
 	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 */
-	public List<Despesa> buscarPorPeriodoDataRecebimentoEsperado(LocalDateTime dataInicial, LocalDateTime dataFinal) {
+	public List<Despesa> buscarPorPeriodoDataPagamentoEsperado(LocalDateTime dataInicial, LocalDateTime dataFinal) {
 		return despesaRepository.findByDataPagamentoEsperadoBetween(dataInicial, dataFinal);
 	}
+
+	/**
+	 * Metodo que lista despesas por tipo das despesas
+	 * 
+	 * @param tipoDespesa TipoDespesa - referente ao enum com tipos de despesas
+	 * 
+	 * @return ListDespesa - refente a todas as despesas encontradas
+	 */
+	public List<Despesa> buscarTipoDespesa(TipoDespesa tipoDespesa) {
+		return despesaRepository.findByTipoDespesa(tipoDespesa);
+	}
+
 }

@@ -15,6 +15,6 @@ public class ContaInexistenteException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	public ContaInexistenteException(Integer id) {
-		super("Não foi encontrado uma conta com o id " + id);
+		super("Não foi encontrado uma conta com o id: " + id);
 	}
 }

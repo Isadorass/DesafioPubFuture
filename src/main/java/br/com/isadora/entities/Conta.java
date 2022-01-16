@@ -13,17 +13,16 @@ import br.com.isadora.enums.TipoConta;
 /**
  * <h1>Entidade referente a {@link Conta}.</h1>
  * 
- * <p>Está classe possui todos os
- * atributos da entidade {@link Conta}.
- * Está classe foi mapeada com o
- * framework Hibernate para que seja
- * feita uma entidade relacional em
- * um banco de dados.</p>
+ * <p>
+ * Está classe possui todos os atributos da entidade {@link Conta}. Está classe
+ * foi mapeada com o framework Hibernate para que seja feita uma entidade
+ * relacional em um banco de dados.
+ * </p>
  * 
- * <p>Esta classe recebe a anotação
- * {@link Entity}, que diz ao Hibernate
- * que esta classe será uma entidade
- * em nosso banco de dados.</p>
+ * <p>
+ * Esta classe recebe a anotação {@link Entity}, que diz ao Hibernate que esta
+ * classe será uma entidade em nosso banco de dados.
+ * </p>
  * 
  * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
  *
@@ -34,20 +33,20 @@ import br.com.isadora.enums.TipoConta;
 public class Conta {
 
 	/**
-	 * <p>id {@link Integer} - Referente ao Id
-	 * da {@link Conta}.</p>
+	 * <p>
+	 * id {@link Integer} - Referente ao Id da {@link Conta}.
+	 * </p>
 	 * 
-	 * <p>Este atributo recebe
-	 * a anotação {@link GeneratedValue} com 
-	 * o seu parâmetro strategy. Está anotação
-	 * determina que esse atributo vai ser gerado
-	 * automaticamente com a estratégia {@link GenerationType#AUTO}.</p>
+	 * <p>
+	 * Este atributo recebe a anotação {@link GeneratedValue} com o seu parâmetro
+	 * strategy. Está anotação determina que esse atributo vai ser gerado
+	 * automaticamente com a estratégia {@link GenerationType#AUTO}.
+	 * </p>
 	 * 
-	 * <p>Este atributo também recebe
-	 * a anotação {@link Id}, essa anotação
-	 * diz para o Hibernate que este atributo
-	 * será a chave primária da entidade
-	 * {@link Conta}.</p>
+	 * <p>
+	 * Este atributo também recebe a anotação {@link Id}, essa anotação diz para o
+	 * Hibernate que este atributo será a chave primária da entidade {@link Conta}.
+	 * </p>
 	 * 
 	 * @see Integer
 	 * @see Conta
@@ -55,25 +54,25 @@ public class Conta {
 	 * @see GenerationType#AUTO
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	/**
-	 * <p>saldo {@link Double} - Referente
-	 * ao saldo da {@link Conta}.</p>
+	 * <p>
+	 * saldo {@link Double} - Referente ao saldo da {@link Conta}.
+	 * </p>
 	 * 
-	 * <p>Este atributo recebe a anotação
-	 * {@link NonNull}, que diz ao Hibernate
-	 * que este atributo não poderá ser
-	 * salvo como nulo no banco de dados.</p>
+	 * <p>
+	 * Este atributo recebe a anotação {@link NonNull}, que diz ao Hibernate que
+	 * este atributo não poderá ser salvo como nulo no banco de dados.
+	 * </p>
 	 * 
-	 * <p>Este atributo recebe a anotação
-	 * {@link Column}, a anotação {@link Column}
-	 * diz ao Hibernate que este atributo
-	 * será uma coluna da entidade {@link Conta}.
-	 * Usamos um parametro {@link Column#length()}
-	 * para determinar o tamanho deste atributo
-	 * no banco de dados.</p>
+	 * <p>
+	 * Este atributo recebe a anotação {@link Column}, a anotação {@link Column} diz
+	 * ao Hibernate que este atributo será uma coluna da entidade {@link Conta}.
+	 * Usamos um parametro {@link Column#length()} para determinar o tamanho deste
+	 * atributo no banco de dados.
+	 * </p>
 	 * 
 	 * @see Double
 	 * @see Conta
@@ -86,21 +85,21 @@ public class Conta {
 	private Double saldo;
 
 	/**
-	 * <p>tipoConta {@link TipoConta} - Referente
-	 * ao tipo da {@link Conta}.</p>
+	 * <p>
+	 * tipoConta {@link TipoConta} - Referente ao tipo da {@link Conta}.
+	 * </p>
 	 * 
-	 * <p>Este atributo recebe a anotação
-	 * {@link NonNull}, que diz ao Hibernate
-	 * que este atributo não poderá ser
-	 * salvo como nulo no banco de dados.</p>
+	 * <p>
+	 * Este atributo recebe a anotação {@link NonNull}, que diz ao Hibernate que
+	 * este atributo não poderá ser salvo como nulo no banco de dados.
+	 * </p>
 	 * 
-	 * <p>Este atributo recebe a anotação
-	 * {@link Column}, a anotação {@link Column}
-	 * diz ao Hibernate que este atributo
-	 * será uma coluna da entidade {@link Conta}.
-	 * Usamos um parametro {@link Column#length()}
-	 * para determinar o tamanho deste atributo
-	 * no banco de dados.</p>
+	 * <p>
+	 * Este atributo recebe a anotação {@link Column}, a anotação {@link Column} diz
+	 * ao Hibernate que este atributo será uma coluna da entidade {@link Conta}.
+	 * Usamos um parametro {@link Column#length()} para determinar o tamanho deste
+	 * atributo no banco de dados.
+	 * </p>
 	 * 
 	 * @see TipoConta
 	 * @see Conta
@@ -113,21 +112,22 @@ public class Conta {
 	private TipoConta tipoConta;
 
 	/**
-	 * <p>instituicaoFinanceira {@link String} - Referente
-	 * a instituição finaceira da {@link Conta}.</p>
+	 * <p>
+	 * instituicaoFinanceira {@link String} - Referente a instituição finaceira da
+	 * {@link Conta}.
+	 * </p>
 	 * 
-	 * <p>Este atributo recebe a anotação
-	 * {@link NonNull}, que diz ao Hibernate
-	 * que este atributo não poderá ser
-	 * salvo como nulo no banco de dados.</p>
+	 * <p>
+	 * Este atributo recebe a anotação {@link NonNull}, que diz ao Hibernate que
+	 * este atributo não poderá ser salvo como nulo no banco de dados.
+	 * </p>
 	 * 
-	 * <p>Este atributo recebe a anotação
-	 * {@link Column}, a anotação {@link Column}
-	 * diz ao Hibernate que este atributo
-	 * será uma coluna da entidade {@link Conta}.
-	 * Usamos um parametro {@link Column#length()}
-	 * para determinar o tamanho deste atributo
-	 * no banco de dados.</p>
+	 * <p>
+	 * Este atributo recebe a anotação {@link Column}, a anotação {@link Column} diz
+	 * ao Hibernate que este atributo será uma coluna da entidade {@link Conta}.
+	 * Usamos um parametro {@link Column#length()} para determinar o tamanho deste
+	 * atributo no banco de dados.
+	 * </p>
 	 * 
 	 * @see String
 	 * @see Conta
@@ -150,6 +150,10 @@ public class Conta {
 
 	public Integer getId() {
 		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Double getSaldo() {
@@ -177,7 +181,7 @@ public class Conta {
 	}
 
 	public String toString() {
-		return "Conta [id = " + this.id + ", saldo=" + this.saldo + ", tipoConta=" + this.tipoConta + ", instituicaoFinanceira="
-				+ this.instituicaoFinanceira + "]";
+		return "Conta [id = " + this.id + ", saldo=" + this.saldo + ", tipoConta=" + this.tipoConta
+				+ ", instituicaoFinanceira=" + this.instituicaoFinanceira + "]";
 	}
 }

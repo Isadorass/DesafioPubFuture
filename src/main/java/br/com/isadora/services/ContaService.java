@@ -70,8 +70,15 @@ public class ContaService {
 	 * @see Conta
 	 * @see Integer
 	 */
-	public Integer atualizar(Conta conta) {
-		return contaRepository.save(conta).getId();
+	public Integer atualizar(Integer id, Conta conta) {
+		try {
+			Conta contaAtual = existeConta(id);
+			conta.setId(contaAtual.getId());
+			return contaRepository.save(conta).getId();
+		} catch (Exception exception) {
+			System.err.println(exception);
+			return 0;
+		}
 	}
 
 	/**
@@ -112,12 +119,12 @@ public class ContaService {
 	 * @see Exception
 	 * @see Integer
 	 */
-	public Conta buscarPorId(Integer id) throws ContaInexistenteException {
+	public Conta buscarPorId(Integer id) {
 		try {
 			return existeConta(id);
 		} catch (Exception exception) {
 			System.err.println(exception);
-			return new Conta();
+			return null;
 		}
 	}
 
@@ -209,19 +216,24 @@ public class ContaService {
 	/**
 	 * <h1>Verifica o valor da transferência.</h1>
 	 * 
-	 * <p>Verifica se o valor da transferência
-	 * é menor que 0, se for lança uma {@link ValorNegativoException}.</p>
+	 * <p>
+	 * Verifica se o valor da transferência é menor que 0, se for lança uma
+	 * {@link ValorNegativoException}.
+	 * </p>
 	 * 
-	 * @return Boolean - true caso o valor for válido
+	 * @param valor {@link Double} - Referente ao valor a ser validado.
 	 * 
-	 * @throws {@link ValorNegativoException} - Lançado
-	 * caso o valor seja negativo.
+	 * @return {@link Boolean} - true caso o valor for válido
+	 * 
+	 * @throws {@link ValorNegativoException} - Lançado caso o valor seja negativo.
 	 * 
 	 * @author Isadora de Souza e Silva <strong>isadorass1710@gmail.com</strong>
 	 * 
 	 * @see ValorNegativoException
+	 * @see Double
+	 * @see Boolean
 	 */
-	private void verificaValorTransferencia(Double valor) throws ValorNegativoException{
+	private void verificaValorTransferencia(Double valor) throws ValorNegativoException {
 		if (ContaValidation.verificarValorNegativo(valor)) {
 			throw new ValorNegativoException();
 		}
@@ -281,13 +293,13 @@ public class ContaService {
 	private Boolean transferir(Conta contaPagante, Conta contaRecebente, Double valor) {
 		Double saldoPagante = contaPagante.getSaldo();
 		Double saldoRecebente = contaRecebente.getSaldo();
-
+		
 		if (ContaValidation.verificaSaldo(contaPagante, valor)) {
 			contaPagante.setSaldo(saldoPagante - valor);
 			contaRecebente.setSaldo(saldoRecebente + valor);
 
-			atualizar(contaRecebente);
-			atualizar(contaPagante);
+			atualizar(contaRecebente.getId(), contaRecebente);
+			atualizar(contaPagante.getId(), contaPagante);
 			return true;
 		}
 		return false;

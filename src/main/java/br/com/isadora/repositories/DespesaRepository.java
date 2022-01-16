@@ -11,6 +11,7 @@ import br.com.isadora.enums.TipoDespesa;
 
 @Repository
 public interface DespesaRepository extends JpaRepository<Despesa, Integer> {
+
 	List<Despesa> findByTipoDespesa(TipoDespesa tipoDespesa);
 
 	List<Despesa> findByDataPagamentoBetween(LocalDateTime dataInicial, LocalDateTime dataFinal);
