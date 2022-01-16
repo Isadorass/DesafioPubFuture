@@ -9,6 +9,7 @@
 		<spring-web.version>5.3.14</spring-web.version>
 		<spring-data-jpa.version>2.6.0</spring-data-jpa.version>
 		<mockito-all.version>1.10.19</mockito-all.version>
+		<postgres-version>42.3.1</postgres-version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
@@ -40,7 +41,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.3.1</version>
+			<version>${postgres-version}</version>
 		</dependency>
 	</dependencies>
 

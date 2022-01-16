@@ -1,0 +1,649 @@
+{
+	"info": {
+		"_postman_id": "f38cc93e-3007-4c52-ad9d-9dc0c2185ea5",
+		"name": "PubFuture",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Conta",
+			"item": [
+				{
+					"name": "Criar Conta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"saldo\" : 1000.500,    \r\n    \"tipoConta\" : \"CONTA_CORRENTE\",\r\n    \"instituicaoFinanceira\" : \"Caixa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/conta",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"conta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pegar todas as Contas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/conta",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"conta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pegar Conta por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/conta/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"conta",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar saldo total",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/conta/listarSaldoTotal?id=4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"conta",
+								"listarSaldoTotal"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Conta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"saldo\" : 500,\r\n    \"instituicaoFinanceira\" : \"Itau\",\r\n    \"tipoConta\" : \"CONTA_CORRENTE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/conta?id=4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"conta"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transferir Saldo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/conta/transferir?contaPagante=2&contaRecebente=3&valor=200",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"conta",
+								"transferir"
+							],
+							"query": [
+								{
+									"key": "contaPagante",
+									"value": "2"
+								},
+								{
+									"key": "contaRecebente",
+									"value": "3"
+								},
+								{
+									"key": "valor",
+									"value": "200"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Conta",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/conta?id=4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"conta"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Receita",
+			"item": [
+				{
+					"name": "Criar Receita",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"valor\": 2220,\r\n    \"dataRecebimento\": \"2022-01-12T12:00:00\",\r\n    \"dataRecebimentoEsperado\": \"2022-01-15T12:00:00\",\r\n    \"descricao\": \"Lucas Nunes\",\r\n    \"tipoReceita\": \"SALARIO\",\r\n    \"conta\": {\r\n        \"id\": 2\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/receita",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"receita"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Receita",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"valor\": 20000,\r\n    \"dataRecebimento\": \"2022-01-12T12:00:00\",\r\n    \"dataRecebimentoEsperado\": \"2022-01-15T12:00:00\",\r\n    \"descricao\": \"Kloxis\",\r\n    \"tipoReceita\": \"SALARIO\",\r\n    \"conta\": {\r\n        \"id\": 3\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/receita?id=6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"receita"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Receita",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/receita?id=6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"receita"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Receitas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/receita",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"receita"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Total Receitas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/receita/totalReceitas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"receita",
+								"totalReceitas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Tipo Receita",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/receita/tipoReceita?tipoReceita=SALARIO",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"receita",
+								"tipoReceita"
+							],
+							"query": [
+								{
+									"key": "tipoReceita",
+									"value": "SALARIO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Receita Por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/receita/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"receita",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Data de Recebimento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/receita/dataRecebimento?dataInicial=2022-01-16T08:00:00&dataFinal=2022-01-21T08:00:00",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"receita",
+								"dataRecebimento"
+							],
+							"query": [
+								{
+									"key": "dataInicial",
+									"value": "2022-01-16T08:00:00"
+								},
+								{
+									"key": "dataFinal",
+									"value": "2022-01-21T08:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Data de Recebimento Esperado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/receita/dataRecebimentoEsperado?dataInicial=2022-01-18T08:00:00&dataFinal=2022-02-21T08:00:00",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"receita",
+								"dataRecebimentoEsperado"
+							],
+							"query": [
+								{
+									"key": "dataInicial",
+									"value": "2022-01-18T08:00:00"
+								},
+								{
+									"key": "dataFinal",
+									"value": "2022-02-21T08:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Despesa",
+			"item": [
+				{
+					"name": "Criar Despesa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"valor\": 651,\r\n    \"dataPagamento\": \"2022-02-18T11:30:20\",\r\n    \"dataPagamentoEsperado\": \"2022-01-14T11:30:20\",\r\n    \"tipoDespesa\": \"SAUDE\",\r\n    \"conta\": {\r\n        \"id\" : 2\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/despesa",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"despesa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Despesa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"valor\": 20,\r\n    \"dataPagamento\": \"2022-01-16T11:30:20\",\r\n    \"dataPagamentoEsperado\": \"2022-01-15T11:30:20\",\r\n    \"tipoDespesa\": \"LAZER\",\r\n    \"conta\": {\r\n        \"id\": 2\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/despesa?id=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"despesa"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Despesa",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/despesa?id=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"despesa"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Despesas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/despesa",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"despesa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Despesa  Por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/despesa/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"despesa",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Total Despesas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/despesa/totalDespesas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"despesa",
+								"totalDespesas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Tipo Despesa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/despesa/tipoDespesa?tipoDespesa=SAUDE",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"despesa",
+								"tipoDespesa"
+							],
+							"query": [
+								{
+									"key": "tipoDespesa",
+									"value": "SAUDE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Data de Pagamento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/despesa/dataPagamento?dataInicial=2022-01-16T08:00:00&dataFinal=2022-01-21T08:00:00",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"despesa",
+								"dataPagamento"
+							],
+							"query": [
+								{
+									"key": "dataInicial",
+									"value": "2022-01-16T08:00:00"
+								},
+								{
+									"key": "dataFinal",
+									"value": "2022-01-21T08:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Data de Pagamento Esperado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/despesa/dataPagamentoEsperado?dataInicial=2022-01-18T08:00:00&dataFinal=2022-02-21T08:00:00",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"despesa",
+								"dataPagamentoEsperado"
+							],
+							"query": [
+								{
+									"key": "dataInicial",
+									"value": "2022-01-18T08:00:00"
+								},
+								{
+									"key": "dataFinal",
+									"value": "2022-02-21T08:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
